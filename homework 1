@@ -1,0 +1,84 @@
+<?php
+
+// ----Объединение двух массивов----
+function combineArrays(array $array1, array $array2) {
+    // Объединяем два массива
+    $mergedArray = array_merge($array1, $array2);
+    // Убираем повторяющиеся элементы
+    return array_unique($mergedArray);
+}
+
+// ----Работа с числами Фибоначчи----
+// Вычисление числа Фибоначчи для заданного индекса $index
+function calculateFibonacci($index) {
+    if ($index < 0) {
+        return "Число должно быть неотрицательным";
+    } elseif ($index === 0) {
+        return 0;
+    } elseif ($index === 1) {
+        return 1;
+    } else {
+        return calculateFibonacci($index - 1) + calculateFibonacci($index - 2);
+    }
+}
+
+// Генерация первых $n чисел Фибоначчи
+function displayFibonacciSeries($n) {
+    $series = [];
+    for ($i = 0; $i < $n; $i++) {
+        $series[] = calculateFibonacci($i);
+    }
+
+    echo "Первые <b>{$n}</b> чисел Фибоначчи: " . implode(', ', $series) . '<br>';
+}
+
+// Рекурсивная генерация чисел Фибоначчи до заданного значения $limit
+function generateFibonacciUpTo($current, $next, $limit, &$result) {
+    if ($current > $limit) {
+        return;
+    }
+    $result[] = $current;
+    generateFibonacciUpTo($next, $current + $next, $limit, $result);
+}
+
+// Вывод чисел Фибоначчи до определенного предела
+function showFibonacciUpTo($limit) {
+    $result = [];
+    generateFibonacciUpTo(0, 1, $limit, $result);
+    echo "Числа Фибоначчи до числа <b>{$limit}</b>: " . implode(', ', $result) . "<br>";
+}
+
+// ----Вычисление факториала числа рекурсивно----
+function computeFactorial($value) {
+    if ($value < 0) {
+        return "Введите неотрицательное число";
+    } elseif ($value === 0) {
+        return 1;
+    } else {
+        return $value * computeFactorial($value - 1);
+    }
+}
+
+// ----Исходные данные----
+// Для объединения массивов
+$arrayA = [1, 2, 2, 3, 4, 5];
+$arrayB = [1, 7, 3, 8];
+$combinedResult = combineArrays($arrayA, $arrayB);
+
+// Для чисел Фибоначчи
+$fibonacciLength = 3;
+
+// ----Результаты выполнения----
+// Результат 1
+echo '<b>Результат 1:</b>' . "<br>";
+echo 'Массив A: ' . implode(', ', $arrayA) . '<br>';
+echo 'Массив B: ' . implode(', ', $arrayB) . '<br>';
+echo 'Объединенный массив: ' . implode(', ', $combinedResult) . '<br>';
+echo "<br>";
+
+// Результат 2
+echo '<b>Результат 2:</b>' . "<br>";
+displayFibonacciSeries($fibonacciLength);
+echo "<br>";
+
+?>
