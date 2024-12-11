@@ -1,0 +1,31 @@
+<?php
+
+interface LoggerInterface {
+    public function log(string $message): void;
+}
+
+// Абстрактный базовый класс логгера
+abstract class BaseLogger implements LoggerInterface {
+    // Основной метод для записи данных в базу
+    protected function saveToDatabase(string $message): void {
+        // Пример логики записи (замените на подключение к реальной базе):
+        echo "[Database Log]: Сообщение сохранено: '$message'.<br>";
+    }
+
+    // Обязательный метод для реализации в дочерних классах
+    abstract public function log(string $message): void;
+}
+
+// Класс логгера, использующий запись в базу данных
+class DbLogger extends BaseLogger {
+    public function log(string $message): void {
+        // Вызов метода для сохранения в базу
+        $this->saveToDatabase($message);
+    }
+}
+
+// Демонстрация работы логгера
+$logHandler = new DbLogger();
+$logHandler->log("Пример сообщения для записи в базу данных.");
+
+?>
